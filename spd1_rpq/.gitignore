@@ -1,0 +1,6 @@
+bin/
+obj/
+rpq.cbp
+rpq.depend
+rpq.layout
+.gitignore
