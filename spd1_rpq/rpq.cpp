@@ -26,17 +26,17 @@ int main()
             i++;
         }
 
-        int order[n], temp[n], cmax=0, t=0;
-   //     int *order = new int[n], *temp = new int[n], cmax=0, t=0;
+        int order[n], temp[n], temp2[n], cmax=0, t=0;
+   //     int *order = new int[n], *temp = new int[n], *temp2 = new int[n], cmax=0, t=0;
 
-        // sortowanie po r i zapisanie kolejnosci do tablicy
+        /*/ sortowanie po r i zapisanie kolejnosci do tablicy
         for(i=0; i<n; i++){
             temp[i] = R[i];
         }
         sort(temp, temp+n);
         for(i=0; i<n; i++){
             order[i] = distance(R, find(R, R+n, temp[i])); // uwaga! funkcja zle policzy, gdy sa powtarzajace sie wartosci r
-        }
+        }*/
 
         /*/ sortowanie po q i zapisanie kolejnosci do tablicy
         for(i=0; i<n; i++){
@@ -46,6 +46,18 @@ int main()
         for(i=0; i<n; i++){
             order[i] = distance(Q, find(Q, Q+n, temp[i])); // uwaga! funkcja zle policzy, gdy sa powtarzajace sie wartosci q
         }*/
+
+        //sortowanie po r-q i zapisanie kolejnosci do tablicy
+        for(i=0; i<n; i++){
+            temp[i] = R[i]-Q[i];
+        }
+        for(i=0; i<n; i++){
+            temp2[i] = temp[i];
+        }
+        sort(temp2, temp2+n);
+        for(i=0; i<n; i++){
+            order[i] = distance(temp, find(temp, temp+n, temp2[i])); // uwaga! funkcja zle policzy, gdy sa powtarzajace sie wartosci r-q
+        }
 
         // policzenie czasu calkowitego cmax
         for(i=0; i<n; i++)
@@ -68,7 +80,8 @@ int main()
         delete[] P;
         delete[] Q;
         delete[] order;
-        delete[] temp;*/
+        delete[] temp;
+        delete[] temp2;*/
         i=0;
 
         sum = sum + cmax; // suma calkowita dla 4 danych
