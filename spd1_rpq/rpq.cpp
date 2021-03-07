@@ -10,7 +10,7 @@ using namespace std;
 int main()
 {
 
-    int n, r,p,q, i=0; // n - liczba zadan, r - czas dostarczenia, p - czas trwania na maszynie, q - czas stygniecia;
+    int n, r,p,q, i=0, sum=0; // n - liczba zadan, r - czas dostarczenia, p - czas trwania na maszynie, q - czas stygniecia;
     string filename[]={"data_1.txt", "data_2.txt", "data_3.txt", "data_4.txt"};
 
     for(int fnc = 0; fnc < 4; fnc++)
@@ -28,6 +28,7 @@ int main()
 
         int order[n], temp[n], cmax=0, t=0;
    //     int *order = new int[n], *temp = new int[n], cmax=0, t=0;
+
         // sortowanie po r i zapisanie kolejnosci do tablicy
         for(i=0; i<n; i++){
             temp[i] = R[i];
@@ -62,13 +63,19 @@ int main()
         }
         cout << "\nCmax = " << cmax << endl << endl;
 
+        // wyzerowanie odpowiednich zmiennych - przygotowanie petli do nastepnego pliku z danymi
     /*    delete[] R;
         delete[] P;
         delete[] Q;
         delete[] order;
         delete[] temp;*/
         i=0;
+
+        sum = sum + cmax; // suma calkowita dla 4 danych
     }
+
+    cout << "Suma = " << sum << endl;
+
 
     return 0;
 }
