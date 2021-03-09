@@ -150,10 +150,13 @@ int main()
 
 
             cout << "Wartosci:\n";
+            cout.width(7); cout << left << " ";
             cout.width(7); cout << left << "R";
             cout.width(6); cout << left << "P";
             cout.width(6); cout << left << "Q" << endl;
             for(int i = 0; i < n; i++){
+                cout.width(7); cout << left;
+                cout << rightorder[i]+1;
                 cout.width(7); cout << left;
                 cout << R[rightorder[i]];
                 cout.width(6); cout << left;
