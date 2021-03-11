@@ -25,26 +25,20 @@ int main()
             R[w]=r, P[w]=p, Q[w]=q;
             w++;
         }
-        int order[n], rightorder[n], temp[n], temp2[n], cmax=0, t=0, best=1000000, bestx, besty, x=64, tmpr[n], tempq[n];
+        int order[n], rightorder[n], temp[n], temp2[n], cmax=0, t=0, best=1000000, bestx, besty, x=64, tmpr[n], tmpq[n];
    //     int *order = new int[n], *temp = new int[n], *temp2 = new int[n], cmax=0, t=0;
 
-        // sortowanie po r i zapisanie kolejnosci do tablicy
+        /*/ sortowanie po r i zapisanie kolejnosci do tablicy tmpr
         for(int i=0; i<n; i++){
             tmpr[i] = R[i];
         }
         sort(tmpr, tmpr+n);
-        for(int i=0; i<n; i++){
-            order[i] = distance(R, find(R, R+n, tmpr[i])); // uwaga! funkcja zle policzy, gdy sa powtarzajace sie wartosci r
-        }
 
-        // sortowanie po q i zapisanie kolejnosci do tablicy
+        // sortowanie po q i zapisanie kolejnosci do tablicy tmpq
         for(int i=0; i<n; i++){
-            tempq[i] = Q[i];
+            tmpq[i] = Q[i];
         }
-        sort(tempq, tempq+n, greater<int>());
-        for(int i=0; i<n; i++){
-            order[i] = distance(Q, find(Q, Q+n, tempq[i])); // uwaga! funkcja zle policzy, gdy sa powtarzajace sie wartosci q
-        }
+        sort(tmpq, tmpq+n, greater<int>());*/
 
         /*/sortowanie po xr-yq i zapisanie kolejnosci do tablicy
         int X[]={1,3,4,8,11,12,21,23};
@@ -55,20 +49,20 @@ int main()
                 for(int y=0; y<z; y++)
                     {
 
-                    for(i=0; i<n; i++){
+                    for(int i=0; i<n; i++){
                         temp[i] = X[x]*R[i]-Y[y]*Q[i];
                     }
-                    for(i=0; i<n; i++){
+                    for(int i=0; i<n; i++){
                         temp2[i] = temp[i];
                     }
                     sort(temp2, temp2+n);
-                    for(i=0; i<n; i++){
+                    for(int i=0; i<n; i++){
                         order[i] = distance(temp, find(temp, temp+n, temp2[i])); // uwaga! funkcja zle policzy, gdy sa powtarzajace sie wartosci xr-yq
                     }
 
 
                     // policzenie czasu calkowitego cmax
-                    for(i=0; i<n; i++)
+                    for(int i=0; i<n; i++)
                     {
                         if(R[order[i]]>t) t = R[order[i]] + P[order[i]];
                         else t = t + P[order[i]];
@@ -95,74 +89,85 @@ int main()
                 }
         }*/
 
-            // sortowanie po rand i zapisanie kolejnosci do tablicy
+            /*/ sortowanie po rand i zapisanie kolejnosci do tablicy
             for(int j = 0; j < 1; j++)
             {
 
-                int *temp = new int[n];
+                int *rnd = new int[n];
             /*    for(int k=0; k<n; k++){
-                    temp[k] = -k-1;
+                    rnd[k] = -k-1;
                 }
 
                 for(int d=0; d<n; d++) // losowanie kolejnosci
                 {
                     x = rand() % n;
-                    while((find(temp, temp + n, x) != temp + n) == true)
+                    while((find(rnd, rnd + n, x) != rnd + n) == true)
                         x = rand() % n;
 
-                    temp[d] = x;
-                }*/
+                    rnd[d] = x;
+                }* /
 
                 for(int v=0; v < n; v++){
-                    temp[v] = v;
+                    rnd[v] = v;
                 }
-         //       random_shuffle(temp+5, temp + n - 5);
+         //       random_shuffle(rnd+5, rnd + n - 5);
 
                 // policzenie czasu calkowitego cmax
                 for(int b=0; b<n; b++)
                 {
-                    if(R[temp[b]]>t) t = R[temp[b]] + P[temp[b]];
-                    else t = t + P[temp[b]];
-                    cmax = max(cmax, t+Q[temp[b]]);
+                    if(R[rnd[b]]>t) t = R[rnd[b]] + P[rnd[b]];
+                    else t = t + P[rnd[b]];
+                    cmax = max(cmax, t+Q[rnd[b]]);
                 }
                 if(cmax < best){
                     best = cmax;
                     for(int e=0; e<n; e++)
-                        rightorder[e] = temp[e];
+                        rightorder[e] = rnd[e];
                 }
 
                 cmax=0, t=0;
 
-                delete [] temp;
+                delete [] rnd;
+            }*/
+
+      /*      for(int i = 0; i < n; i++)
+            {
+                rightorder[i] = distance(Q, find(Q, Q+n, tmpq[i]));
+            }*/
+
+
+            int modifiedorder[] = {9, 18, 22, 11, 20, 21, 5, 3, 24, 10, 13, 23, 14, 17, 12, 8, 4, 6, 1, 7, 15, 16, 19, 2};
+
+            for(int i=0; i<n; i++)
+            {
+                if(R[modifiedorder[i]-1]>t) t = R[modifiedorder[i]-1] + P[modifiedorder[i]-1];
+                else t = t + P[modifiedorder[i]-1];
+                cmax = max(cmax, t+Q[modifiedorder[i]-1]);
             }
 
-            for(int i = 0; i < n; i++)
-            {
-                rightorder[i] = distance(R, find(R, R+n, tmpr[i]));
-            }
 
 
             cout << filename[0] << endl << "Kolejnosc: ";
                     for(int z=0; z<n; z++){
-                        cout<<rightorder[z]+1<<" ";
+                        cout<<modifiedorder[z]<<" ";
                     }
-            cout << "\nCmax = " << best << endl << endl;
+            cout << endl << endl;
 
 
-            cout << "Wartosci:\n";
-            cout.width(7); cout << left << " ";
+            cout << "Wartosci:\t(Cmax = " << cmax << ")\n";
+            cout.width(7); cout << left << "nr";
             cout.width(7); cout << left << "R";
             cout.width(6); cout << left << "P";
             cout.width(6); cout << left << "Q" << endl;
             for(int i = 0; i < n; i++){
                 cout.width(7); cout << left;
-                cout << rightorder[i]+1;
+                cout << modifiedorder[i];
                 cout.width(7); cout << left;
-                cout << R[rightorder[i]];
+                cout << R[modifiedorder[i]-1];
                 cout.width(6); cout << left;
-                cout << P[rightorder[i]];
+                cout << P[modifiedorder[i]-1];
                 cout.width(6); cout << left;
-                cout << Q[rightorder[i]] << endl;
+                cout << Q[modifiedorder[i]-1] << endl;
             }
 
 
