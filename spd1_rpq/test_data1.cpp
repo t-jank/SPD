@@ -25,22 +25,24 @@ int main()
             R[w]=r, P[w]=p, Q[w]=q;
             w++;
         }
-        int order[n], rightorder[n], temp[n], temp2[n], cmax=0, t=0, best=1000000, bestx, besty, x=64, tmpr[n], tmpq[n];
+        int order[n], rightorder[n], temp[n], temp2[n], cmax=0, t=0, best=1000000, bestx, besty, x=64, tmpr[n], tmpq[n], orderq[n], orderr[n];
    //     int *order = new int[n], *temp = new int[n], *temp2 = new int[n], cmax=0, t=0;
 
-        /*/ sortowanie po r i zapisanie kolejnosci do tablicy tmpr
+        // sortowanie po r i zapisanie kolejnosci do tablicy tmpr
         for(int i=0; i<n; i++){
             tmpr[i] = R[i];
         }
         sort(tmpr, tmpr+n);
+        for(int i=0; i<n; i++) orderr[i] = distance(R, find(R, R+n, tmpr[i]));
 
         // sortowanie po q i zapisanie kolejnosci do tablicy tmpq
         for(int i=0; i<n; i++){
             tmpq[i] = Q[i];
         }
-        sort(tmpq, tmpq+n, greater<int>());*/
+        sort(tmpq, tmpq+n, greater<int>());
+        for(int i=0; i<n; i++) orderq[i] = distance(Q, find(Q, Q+n, tmpq[i]));
 
-        /*/sortowanie po xr-yq i zapisanie kolejnosci do tablicy
+        //sortowanie po xr-yq i zapisanie kolejnosci do tablicy
         int X[]={1,3,4,8,11,12,21,23};
         int Y[]={1,3,4,8,11,12,21,23};
         int z = sizeof(X) / sizeof(X[0]);
@@ -87,7 +89,7 @@ int main()
             //        cout << "BEST = " << best << endl << endl;
                     cmax = 0, t=0;
                 }
-        }*/
+        }
 
             /*/ sortowanie po rand i zapisanie kolejnosci do tablicy
             for(int j = 0; j < 1; j++)
@@ -136,7 +138,7 @@ int main()
             }*/
 
 
-            int modifiedorder[] = {9, 18, 22, 11, 5, 20, 21, 3, 24, 10, 14, 17, 12, 8, 6, 1, 13, 4, 16, 7, 15, 19, 23, 2};
+            int modifiedorder[] = {9, 18, 22, 11, 5, 20, 10, 21, 24, 3, 17, 14, 12, 6, 8, 1, 13, 4, 16, 7, 15, 19, 23, 2};
 
             for(int i=0; i<n; i++)
             {
@@ -147,27 +149,85 @@ int main()
 
 
 
-            cout << filename[0] << endl << "Kolejnosc: ";
+            cout << filename[0] << endl << "Kolejnosc optymalna: ";
                     for(int z=0; z<n; z++){
                         cout<<modifiedorder[z]<<" ";
+                    }
+
+            cout << endl << "Kolejnosc xR-yQ: ";
+                    for(int z=0; z<n; z++){
+                        cout<<order[z]+1<<" ";
+                    }
+            cout << endl << "Kolejnosc po R: ";
+                    for(int z=0; z<n; z++){
+                        cout<<orderr[z]+1<<" ";
+                    }
+            cout << endl << "Kolejnosc po Q: ";
+                    for(int z=0; z<n; z++){
+                        cout<<orderq[z]+1<<" ";
                     }
             cout << endl << endl;
 
 
-            cout << "Wartosci:\t(Cmax = " << cmax << ")\n";
-            cout.width(7); cout << left << "nr";
+            cout << "Optymalnie:  (Cmax = " << cmax << ")\t";
+            cout << "xR-yQ:  (Cmax = " << "15328" << ")\t\t";
+            cout << "po R:  (Cmax = " << "14239" << ")\t\t";
+            cout << "po Q:  (Cmax = " << "16254" << ")\n";
+            cout.width(5); cout << left << "nr";
+            cout.width(7); cout << left << "R";
+            cout.width(6); cout << left << "P";
+            cout.width(14); cout << left << "Q";
+
+            cout.width(5); cout << left << "nr";
+            cout.width(7); cout << left << "R";
+            cout.width(6); cout << left << "P";
+            cout.width(14); cout << left << "Q";
+
+            cout.width(5); cout << left << "nr";
+            cout.width(7); cout << left << "R";
+            cout.width(6); cout << left << "P";
+            cout.width(14); cout << left << "Q";
+
+            cout.width(5); cout << left << "nr";
             cout.width(7); cout << left << "R";
             cout.width(6); cout << left << "P";
             cout.width(6); cout << left << "Q" << endl;
             for(int i = 0; i < n; i++){
-                cout.width(7); cout << left;
+                cout.width(5); cout << left;
                 cout << modifiedorder[i];
                 cout.width(7); cout << left;
                 cout << R[modifiedorder[i]-1];
                 cout.width(6); cout << left;
                 cout << P[modifiedorder[i]-1];
                 cout.width(6); cout << left;
-                cout << Q[modifiedorder[i]-1] << endl;
+                cout << Q[modifiedorder[i]-1] <<"\t";
+
+                cout.width(5); cout << left;
+                cout << order[i]+1;
+                cout.width(7); cout << left;
+                cout << R[order[i]];
+                cout.width(6); cout << left;
+                cout << P[order[i]];
+                cout.width(6); cout << left;
+                cout << Q[order[i]] <<"\t";
+
+                cout.width(5); cout << left;
+                cout << orderr[i]+1;
+                cout.width(7); cout << left;
+                cout << R[orderr[i]];
+                cout.width(6); cout << left;
+                cout << P[orderr[i]];
+                cout.width(6); cout << left;
+                cout << Q[orderr[i]] <<"\t";
+
+                cout.width(5); cout << left;
+                cout << orderq[i]+1;
+                cout.width(7); cout << left;
+                cout << R[orderq[i]];
+                cout.width(6); cout << left;
+                cout << P[orderq[i]];
+                cout.width(6); cout << left;
+                cout << Q[orderq[i]] << endl;
             }
 
 
